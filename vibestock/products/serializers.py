@@ -1,3 +1,5 @@
+from django.conf import settings
+
 from rest_framework import serializers
 
 from vibestock.products.models import Product, ExpirationAlerts
@@ -13,6 +15,11 @@ class ProductSerializer(serializers.ModelSerializer):
 class ExpirationAlertsSerializer(serializers.ModelSerializer):
 
     def validate_number_of_days(self, value):
+        default_expiration_days = settings.DEFAULT_PRODUCT_EXPIRATION_ALERT_DAYS
+        if value in default_expiration_days:
+            raise serializers.ValidationError(
+                f"By default we generate alert on days {default_expiration_days}"
+            )
         expiration_alerts = ExpirationAlerts.objects.filter(
             user=self.context['request'].user
         ).values_list('number_of_days')

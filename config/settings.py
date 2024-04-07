@@ -160,6 +160,8 @@ SITE_ID = 1
 
 AUTH_USER_MODEL = 'users.User'
 
+DEFAULT_PRODUCT_EXPIRATION_ALERT_DAYS = [5, 10]
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
