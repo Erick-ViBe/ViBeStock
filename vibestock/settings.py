@@ -114,12 +114,20 @@ REST_AUTH = {
     'TOKEN_SERIALIZER': 'users.serializers.ResponseTokenSerializer',
 }
 
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.TokenAuthentication",
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+}
+
 SWAGGER_SETTINGS = {
     'USE_SESSION_AUTH': False,
     'SECURITY_DEFINITIONS': {
         'Token format: Token XXXXXXXXXXXXXXXXXXXX': {
             'type': 'apiKey',
-            # 'description': 'Token format: Token XXXXXXXXXXXXXXXXXXXX',
             'name': 'Authorization',
             'in': 'header',
         }
