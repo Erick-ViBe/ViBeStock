@@ -9,7 +9,19 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ['id', 'name', 'description', 'stock', 'expiration_date']
+        fields = [
+            'id',
+            'name',
+            'description',
+            'stock',
+            'expiration_date',
+            'status',
+            'days_to_expire',
+            'expired_days'
+        ]
+        extra_kwargs = {
+            'status': { 'read_only': True },
+        }
 
 
 class ExpirationAlertsSerializer(serializers.ModelSerializer):

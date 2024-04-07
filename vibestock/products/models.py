@@ -2,6 +2,7 @@ from django.db import models
 from django.conf import settings
 
 from vibestock.utils.models.base import BaseModel
+from vibestock.products.managers import ProductManager
 
 
 class Product(BaseModel):
@@ -23,6 +24,10 @@ class Product(BaseModel):
     description = models.CharField(max_length=256)
     stock = models.SmallIntegerField()
     expiration_date = models.DateField()
+    days_to_expire = models.SmallIntegerField(default=0)
+    expired_days = models.SmallIntegerField(default=0)
+
+    objects = ProductManager()
 
     def __str__(self):
         return self.name

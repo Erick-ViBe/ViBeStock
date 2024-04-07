@@ -10,6 +10,7 @@ class ProductFilter(FilterSet):
     class Meta:
         model = Product
         fields = [
-            "expiration_start_date",
-            "expiration_end_date",
+            'expiration_start_date',
+            'expiration_end_date',
+            'status',
         ]
