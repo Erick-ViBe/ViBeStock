@@ -2,7 +2,7 @@ from django.urls import path, include
 
 from dj_rest_auth.views import LoginView, UserDetailsView, LogoutView
 
-from users.views import SignupAPIView
+from vibestock.users.views import SignupAPIView
 
 app_name = 'users'
 

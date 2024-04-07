@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 
-from utils.models.base import BaseModel
+from vibestock.utils.models.base import BaseModel
 
 
 class UserManager(BaseUserManager):

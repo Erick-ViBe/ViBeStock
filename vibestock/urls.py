@@ -26,5 +26,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('docs<format>/', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path('api/', include('users.urls')),
+    path('api/', include('vibestock.users.urls')),
 ]
