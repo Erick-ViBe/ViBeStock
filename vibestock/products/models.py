@@ -5,6 +5,15 @@ from vibestock.utils.models.base import BaseModel
 
 
 class Product(BaseModel):
+    class ProductStatus(models.TextChoices):
+        USABLE = 'USABLE'
+        TO_EXPIRE = 'TO_EXPIRE'
+        EXPIRED = 'EXPIRED'
+
+    status = models.CharField(
+        choices=ProductStatus.choices,
+        default=ProductStatus.USABLE
+    )
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
@@ -14,9 +23,6 @@ class Product(BaseModel):
     description = models.CharField(max_length=256)
     stock = models.SmallIntegerField()
     expiration_date = models.DateField()
-    alert_activated = models.BooleanField(default=False)
-    days_to_activate_alert = models.SmallIntegerField(default=0)
-    days_since_alert_activated = models.SmallIntegerField(default=0)
 
     def __str__(self):
         return self.name
