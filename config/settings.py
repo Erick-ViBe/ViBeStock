@@ -48,7 +48,8 @@ THIRD_PARTY_APPS = [
 ]
 
 LOCAL_APPS = [
-    'vibestock.users.apps.UsersAppConfig'
+    'vibestock.users.apps.UsersAppConfig',
+    'vibestock.products.apps.ProductsAppConfig',
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
