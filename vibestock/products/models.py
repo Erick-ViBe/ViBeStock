@@ -17,3 +17,15 @@ class Product(BaseModel):
 
     def __str__(self):
         return self.name
+
+
+class ExpirationAlerts(BaseModel):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='expiration_alerts'
+    )
+    number_of_days = models.IntegerField()
+
+    def __str__(self):
+        return f'Alert in {self.number_of_days} days'
