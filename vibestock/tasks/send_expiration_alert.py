@@ -8,7 +8,7 @@ from background_task import background
 from vibestock.products import models
 
 
-@background(schedule=timedelta(days=5))
+@background(schedule=10)
 def task(product_id, days_to_expire):
     product = models.Product.objects.get(id=product_id)
 
