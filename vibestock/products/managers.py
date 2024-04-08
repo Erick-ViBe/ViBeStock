@@ -3,6 +3,8 @@ from django.conf import settings
 
 from datetime import date
 
+from vibestock.task.send_expiration_alert import task as send_expiration_alert
+
 
 class ProductManager(Manager):
     def create(self, **obj_data):
@@ -10,11 +12,13 @@ class ProductManager(Manager):
         today = date.today()
         difference_days = (expiration_date - today).days
 
+        user_expiration_alerts = obj_data['user'].expiration_alerts.all().values_list('number_of_days')
+        expiration_alerts = [ day[0] for day in user_expiration_alerts ] + settings.DEFAULT_PRODUCT_EXPIRATION_ALERT_DAYS
+
         if difference_days == 0:
             obj_data['status'] = 'EXPIRED'
         elif difference_days > 0:
-            user_expiration_alerts = obj_data['user'].expiration_alerts.all().values_list('number_of_days')
-            max_expiration_alert_day = max([ day[0] for day in user_expiration_alerts ] + settings.DEFAULT_PRODUCT_EXPIRATION_ALERT_DAYS)
+            max_expiration_alert_day = max(expiration_alerts)
             if difference_days <= max_expiration_alert_day:
                 obj_data['status'] = 'TO_EXPIRE'
             obj_data['days_to_expire'] = difference_days
@@ -22,4 +26,10 @@ class ProductManager(Manager):
             obj_data['status'] = 'EXPIRED'
             obj_data['expired_days'] = abs(difference_days)
 
-        return super().create(**obj_data)
+        create_response = super().create(**obj_data)
+
+        for expiration_alert in expiration_alerts:
+            if (expiration_alert < difference_days):
+                send_expiration_alert(str(create_response.id), expiration_alert, schedule=10)
+
+        return create_response
