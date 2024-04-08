@@ -146,6 +146,9 @@ SWAGGER_SETTINGS = {
     'REFETCH_SCHEMA_WITH_AUTH': True,
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Only for testing
+SENDER_EMAIL = 'alerts@vibestock.mx'
+
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
