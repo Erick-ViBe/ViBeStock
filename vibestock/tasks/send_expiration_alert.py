@@ -12,7 +12,7 @@ from vibestock.products import models
 def task(product_id, days_to_expire):
     product = models.Product.objects.get(id=product_id)
 
-    if product.status is not 'TO_EXPIRE':
+    if product.status != 'TO_EXPIRE':
         product.status = 'TO_EXPIRE'
         product.save()
 
