@@ -21,6 +21,8 @@ class ProductSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {
             'status': { 'read_only': True },
+            'days_to_expire': { 'read_only': True },
+            'expired_days': { 'read_only': True },
         }
 
 
