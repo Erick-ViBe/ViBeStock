@@ -2,7 +2,7 @@ from django.conf import settings
 
 from rest_framework import serializers
 
-from vibestock.products.models import Product, ExpirationAlerts
+from vibestock.products.models import Product, ExpirationAlert
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -26,7 +26,7 @@ class ProductSerializer(serializers.ModelSerializer):
         }
 
 
-class ExpirationAlertsSerializer(serializers.ModelSerializer):
+class ExpirationAlertSerializer(serializers.ModelSerializer):
 
     def validate_number_of_days(self, value):
         default_expiration_days = settings.DEFAULT_PRODUCT_EXPIRATION_ALERT_DAYS
@@ -34,7 +34,7 @@ class ExpirationAlertsSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError(
                 f"By default we generate alert on days {default_expiration_days}"
             )
-        expiration_alerts = ExpirationAlerts.objects.filter(
+        expiration_alerts = ExpirationAlert.objects.filter(
             user=self.context['request'].user
         ).values_list('number_of_days')
         expiration_alerts_days = [ day[0] for day in expiration_alerts ]
@@ -45,5 +45,5 @@ class ExpirationAlertsSerializer(serializers.ModelSerializer):
         return value
 
     class Meta:
-        model = ExpirationAlerts
+        model = ExpirationAlert
         fields = ['id', 'number_of_days']

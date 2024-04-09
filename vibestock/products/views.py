@@ -3,8 +3,8 @@ from rest_framework.mixins import ListModelMixin, CreateModelMixin, DestroyModel
 from rest_framework.filters import OrderingFilter
 from django_filters.rest_framework import DjangoFilterBackend
 
-from vibestock.products.models import Product, ExpirationAlerts
-from vibestock.products.serializers import ProductSerializer, ExpirationAlertsSerializer
+from vibestock.products.models import Product, ExpirationAlert
+from vibestock.products.serializers import ProductSerializer, ExpirationAlertSerializer
 from vibestock.products.filters import ProductFilter
 
 
@@ -25,12 +25,12 @@ class ProductViewSet(ModelViewSet):
         serializer.save(user=self.request.user)
 
 
-class ExpirationAlertsCreateListDestroyViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
+class ExpirationAlertCreateListDestroyViewSet(CreateModelMixin, ListModelMixin, DestroyModelMixin, GenericViewSet):
 
-    serializer_class = ExpirationAlertsSerializer
+    serializer_class = ExpirationAlertSerializer
 
     def get_queryset(self):
-        return ExpirationAlerts.objects.filter(
+        return ExpirationAlert.objects.filter(
             user=self.request.user,
         )
 

@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 
 from datetime import date
 
-from vibestock.products.models import Product, ExpirationAlerts
+from vibestock.products.models import Product, ExpirationAlert
 
 
 def sample_user(email='test@email.com', password='testpassword'):
@@ -28,7 +28,7 @@ class ModelsTests(TestCase):
 
     def test_expiration_alert(self):
         """ Test the expiration alert creation and str """
-        expiration_alert = ExpirationAlerts.objects.create(
+        expiration_alert = ExpirationAlert.objects.create(
             user=sample_user(),
             number_of_days=15,
         )

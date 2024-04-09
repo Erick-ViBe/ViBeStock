@@ -5,8 +5,8 @@ from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework import status
 
-from vibestock.products.models import ExpirationAlerts
-from vibestock.products.serializers import ExpirationAlertsSerializer
+from vibestock.products.models import ExpirationAlert
+from vibestock.products.serializers import ExpirationAlertSerializer
 
 
 EXPIRATION_ALERT_URL = reverse('products:expiration-alerts-list')
@@ -16,7 +16,7 @@ def create_expiration_alert(
     user,
     number_of_days=8,
 ):
-    return ExpirationAlerts.objects.create(
+    return ExpirationAlert.objects.create(
         user=user,
         number_of_days=number_of_days
     )
@@ -58,8 +58,8 @@ class PrivateExpirationAlertAPITests(TestCase):
 
         res = self.client.get(EXPIRATION_ALERT_URL)
 
-        expiration_alerts = ExpirationAlerts.objects.all()
-        serializer = ExpirationAlertsSerializer(expiration_alerts, many=True)
+        expiration_alerts = ExpirationAlert.objects.all()
+        serializer = ExpirationAlertSerializer(expiration_alerts, many=True)
 
         self.assertEqual(res.status_code, status.HTTP_200_OK)
         self.assertEqual(res.data, serializer.data)
@@ -87,7 +87,7 @@ class PrivateExpirationAlertAPITests(TestCase):
 
         res = self.client.post(EXPIRATION_ALERT_URL, payload)
 
-        expiration_alert = ExpirationAlerts.objects.get(id=res.data['id'])
+        expiration_alert = ExpirationAlert.objects.get(id=res.data['id'])
 
         self.assertEqual(res.status_code, status.HTTP_201_CREATED)
         self.assertEqual(int(payload['number_of_days']), expiration_alert.number_of_days)
@@ -97,7 +97,7 @@ class PrivateExpirationAlertAPITests(TestCase):
 
         res = self.client.delete(reverse('products:expiration-alerts-detail', args=[expiration_alert.id]))
 
-        expiration_alert_exists = ExpirationAlerts.objects.filter(
+        expiration_alert_exists = ExpirationAlert.objects.filter(
             id=expiration_alert.id
         ).exists()
 

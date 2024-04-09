@@ -33,7 +33,7 @@ class Product(BaseModel):
         return self.name
 
 
-class ExpirationAlerts(BaseModel):
+class ExpirationAlert(BaseModel):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
