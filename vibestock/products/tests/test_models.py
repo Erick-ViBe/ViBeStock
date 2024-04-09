@@ -6,9 +6,9 @@ from datetime import date
 from vibestock.products.models import Product, ExpirationAlerts
 
 
-def sample_user(username='test@email.com', password='testpassword'):
+def sample_user(email='test@email.com', password='testpassword'):
     """Create a sample user"""
-    return get_user_model().objects.create_user(username, password)
+    return get_user_model().objects.create_user(email, password)
 
 
 class ModelsTests(TestCase):

@@ -6,8 +6,8 @@ from vibestock.products.views import ProductViewSet, ExpirationAlertsCreateListD
 
 
 router = DefaultRouter()
-router.register(r'products/expiration_alerts', ExpirationAlertsCreateListDestroyViewSet, basename='ExpirationAlerts')
-router.register(r'products', ProductViewSet, basename='Product')
+router.register(r'products/expiration_alerts', ExpirationAlertsCreateListDestroyViewSet, basename='expiration-alerts')
+router.register(r'products', ProductViewSet, basename='product')
 
 app_name = 'products'
 
