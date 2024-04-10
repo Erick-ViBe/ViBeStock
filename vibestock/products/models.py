@@ -12,6 +12,7 @@ class Product(BaseModel):
         EXPIRED = 'EXPIRED'
 
     status = models.CharField(
+        max_length=16,
         choices=ProductStatus.choices,
         default=ProductStatus.USABLE
     )
