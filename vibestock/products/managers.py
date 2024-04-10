@@ -1,5 +1,6 @@
 from django.db.models import Manager
 from django.conf import settings
+from django.utils import timezone
 
 from datetime import date, datetime, time, timedelta
 
@@ -28,21 +29,29 @@ class ProductManager(Manager):
             obj_data['expired_days'] = abs(difference_days)
 
         create_response = super().create(**obj_data)
+        expiration_datetime = timezone.make_aware(
+            datetime.combine(expiration_date, time(hour=12)),
+            timezone=timezone.utc,
+        )
 
         send_expired_product(
             str(create_response.id),
-            schedule=datetime.combine(expiration_date, time(hour=12))
+            schedule=expiration_datetime,
         )
-        print('Expired product alert created: {create_response.id} - {expiration_date}')
+        print(f'Expired product alert created: {create_response.id} - {expiration_date}')
 
         for expiration_alert in expiration_alerts:
             if (expiration_alert < difference_days):
                 date_to_send_expiration_alert = expiration_date - timedelta(days=expiration_alert)
+                datetime_to_send_expiration_alert = timezone.make_aware(
+                    datetime.combine(date_to_send_expiration_alert, time(hour=12)),
+                    timezone=timezone.utc,
+                )
                 send_expiration_alert(
                     str(create_response.id),
                     expiration_alert,
-                    schedule=datetime.combine(date_to_send_expiration_alert, time(hour=12))
+                    schedule=datetime_to_send_expiration_alert,
                 )
-                print('To expire product alert created: {create_response.id} - {date_to_send_expiration_alert}')
+                print(f'To expire product alert created: {create_response.id} - {date_to_send_expiration_alert}')
 
         return create_response
