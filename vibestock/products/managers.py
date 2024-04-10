@@ -33,6 +33,7 @@ class ProductManager(Manager):
             str(create_response.id),
             schedule=datetime.combine(expiration_date, time(hour=12))
         )
+        print('Expired product alert created: {create_response.id} - {expiration_date}')
 
         for expiration_alert in expiration_alerts:
             if (expiration_alert < difference_days):
@@ -42,5 +43,6 @@ class ProductManager(Manager):
                     expiration_alert,
                     schedule=datetime.combine(date_to_send_expiration_alert, time(hour=12))
                 )
+                print('To expire product alert created: {create_response.id} - {date_to_send_expiration_alert}')
 
         return create_response
