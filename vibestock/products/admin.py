@@ -1,3 +1,7 @@
 from django.contrib import admin
 
-# Register your models here.
+from vibestock.products.models import Product, ExpirationAlert
+
+
+admin.site.register(Product)
+admin.site.register(ExpirationAlert)
