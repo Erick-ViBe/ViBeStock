@@ -22,4 +22,4 @@ def delete_char_in_line(file_path, line_number, char_position):
         print(f"Line number {line_number} exceeds total lines in the file.")
 
 delete_char_in_line('vibestock/urls.py', 30, 4)
-delete_char_in_line('config/settings.py', 55, 4)
+delete_char_in_line('config/settings.py', 57, 4)

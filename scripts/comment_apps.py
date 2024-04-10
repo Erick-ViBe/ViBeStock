@@ -23,4 +23,4 @@ def insert_char_in_line_position(filename, line_number, position, char='#'):
         print("Line number exceeds total lines in file.")
 
 insert_char_in_line_position('vibestock/urls.py', 30, 5)
-insert_char_in_line_position('config/settings.py', 55, 5)
+insert_char_in_line_position('config/settings.py', 57, 5)
