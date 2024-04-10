@@ -3,8 +3,6 @@ Inventory management and expiration dates API
 
 > Python-DjangoRestFramework
 
-API link: https://todo-api-vibe.herokuapp.com/
-
 ## Table of contents
 * [Technologies](#technologies)
 * [Requirements](#requirements)
